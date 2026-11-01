@@ -1,17 +1,103 @@
 // Audio & Voice Engine for PaySure
-// Features Web Audio API Chime Synthesis and Web Speech API Queue
+// Features Web Audio API Chime Synthesis and Web Speech API Queue with Strict Voice Matching
+
+export type VoiceLanguage = "en" | "hi" | "kn";
+
+interface QueueItem {
+  text: string;
+  lang: VoiceLanguage;
+}
+
+// Convert numbers to natural English words for unambiguous TTS pronunciation
+export function numberToWordsEnglish(num: number): string {
+  if (num === 0) return "zero";
+  if (!Number.isFinite(num) || num < 0) return String(num);
+
+  const ones = [
+    "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+    "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+    "seventeen", "eighteen", "nineteen"
+  ];
+  const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+  const convertLessThanOneThousand = (n: number): string => {
+    let res = "";
+    if (n >= 100) {
+      res += ones[Math.floor(n / 100)] + " hundred ";
+      n %= 100;
+      if (n > 0) res += "and ";
+    }
+    if (n >= 20) {
+      res += tens[Math.floor(n / 10)];
+      if (n % 10 > 0) res += " " + ones[n % 10];
+    } else if (n > 0) {
+      res += ones[n];
+    }
+    return res.trim();
+  };
+
+  let remainder = Math.floor(num);
+  let words = "";
+
+  if (remainder >= 10000000) {
+    const crore = Math.floor(remainder / 10000000);
+    words += convertLessThanOneThousand(crore) + " crore ";
+    remainder %= 10000000;
+  }
+  if (remainder >= 100000) {
+    const lakh = Math.floor(remainder / 100000);
+    words += convertLessThanOneThousand(lakh) + " lakh ";
+    remainder %= 100000;
+  }
+  if (remainder >= 1000) {
+    const thousand = Math.floor(remainder / 1000);
+    words += convertLessThanOneThousand(thousand) + " thousand ";
+    remainder %= 1000;
+  }
+  if (remainder > 0) {
+    words += convertLessThanOneThousand(remainder);
+  }
+
+  return words.trim() || String(num);
+}
 
 class AudioEngine {
   private audioCtx: AudioContext | null = null;
-  private speechQueue: string[] = [];
+  private speechQueue: QueueItem[] = [];
   private isSpeaking = false;
   private volume = 1.0;
   private isMuted = false;
+  private cachedVoices: SpeechSynthesisVoice[] = [];
+  private activeUtterance: SpeechSynthesisUtterance | null = null;
+  private watchdogTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      this.initVoices();
+      if (typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+        window.speechSynthesis.onvoiceschanged = () => this.initVoices();
+      }
+    }
+  }
+
+  private initVoices() {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    try {
+      const v = window.speechSynthesis.getVoices();
+      if (v && v.length > 0) {
+        this.cachedVoices = v;
+      }
+    } catch {
+      // Ignore voice enumeration errors
+    }
+  }
 
   private getAudioContext(): AudioContext | null {
     if (typeof window === "undefined") return null;
     if (!this.audioCtx) {
-      const AudioCtxClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const AudioCtxClass =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtxClass) {
         this.audioCtx = new AudioCtxClass();
       }
@@ -28,6 +114,9 @@ class AudioEngine {
 
   public setMuted(muted: boolean) {
     this.isMuted = muted;
+    if (muted) {
+      this.stopAll();
+    }
   }
 
   // Play realistic fintech soundbox chime using Web Audio API synthesis
@@ -109,79 +198,212 @@ class AudioEngine {
         osc.stop(now + 0.4);
       }
     } catch (e) {
-      console.warn("Web Audio chime could not play:", e);
+      console.warn("Web Audio chime error:", e);
     }
   }
 
-  // Web Speech API Voice synthesis with sequential queue
-  public speak(text: string, lang: "en" | "hi" | "kn" = "en") {
+  // Strictly select the voice matching the requested language
+  private getBestVoice(lang: VoiceLanguage): SpeechSynthesisVoice | null {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
+
+    let voices = this.cachedVoices.length > 0 ? this.cachedVoices : window.speechSynthesis.getVoices();
+    if (voices && voices.length > 0) {
+      this.cachedVoices = voices;
+    }
+
+    if (!voices || voices.length === 0) return null;
+
+    if (lang === "en") {
+      // STRICT FILTER FOR ENGLISH:
+      // Must start with "en" AND must NOT be a Hindi or regional non-English voice
+      const strictlyEnglish = voices.filter((v) => {
+        const vLang = (v.lang || "").toLowerCase();
+        const vName = (v.name || "").toLowerCase();
+        if (
+          vLang.startsWith("hi") ||
+          vLang.startsWith("kn") ||
+          vLang.startsWith("mr") ||
+          vLang.startsWith("ta") ||
+          vLang.startsWith("te") ||
+          vName.includes("hindi") ||
+          vName.includes("kalpana") ||
+          vName.includes("hemant") ||
+          vName.includes("swara") ||
+          vName.includes("madhav") ||
+          vName.includes("kannada")
+        ) {
+          return false;
+        }
+        return vLang.startsWith("en");
+      });
+
+      if (strictlyEnglish.length > 0) {
+        // 1. Prefer English (India) voices (e.g. Microsoft Ravi, Microsoft Heera, Google English India)
+        const inVoice = strictlyEnglish.find(
+          (v) =>
+            v.lang.toLowerCase() === "en-in" ||
+            (v.name.toLowerCase().includes("india") && v.lang.toLowerCase().startsWith("en"))
+        );
+        if (inVoice) return inVoice;
+
+        // 2. Prefer Natural / Online English voices
+        const naturalVoice = strictlyEnglish.find(
+          (v) => v.name.toLowerCase().includes("natural") || v.name.toLowerCase().includes("online")
+        );
+        if (naturalVoice) return naturalVoice;
+
+        // 3. Fallback to any en-US or en-GB voice
+        const usVoice = strictlyEnglish.find((v) => v.lang.toLowerCase().startsWith("en-us"));
+        if (usVoice) return usVoice;
+
+        const gbVoice = strictlyEnglish.find((v) => v.lang.toLowerCase().startsWith("en-gb"));
+        if (gbVoice) return gbVoice;
+
+        return strictlyEnglish[0];
+      }
+
+      // General fallback if no strict match
+      return voices.find((v) => v.lang.toLowerCase().startsWith("en")) || null;
+    }
+
+    if (lang === "hi") {
+      // Find dedicated Hindi voice
+      const hindiVoice = voices.find(
+        (v) =>
+          v.lang.toLowerCase().startsWith("hi") ||
+          v.name.toLowerCase().includes("hindi") ||
+          v.name.toLowerCase().includes("kalpana") ||
+          v.name.toLowerCase().includes("hemant") ||
+          v.name.toLowerCase().includes("swara")
+      );
+      return hindiVoice || null;
+    }
+
+    if (lang === "kn") {
+      // Find dedicated Kannada voice
+      const kannadaVoice = voices.find(
+        (v) =>
+          v.lang.toLowerCase().startsWith("kn") ||
+          v.name.toLowerCase().includes("kannada") ||
+          v.name.toLowerCase().includes("sapna")
+      );
+      return kannadaVoice || null;
+    }
+
+    return null;
+  }
+
+  // Web Speech API Voice synthesis with sequential queue and language pinning
+  public speak(text: string, lang: VoiceLanguage = "en") {
     if (this.isMuted || typeof window === "undefined" || !("speechSynthesis" in window)) {
       return;
     }
 
-    this.speechQueue.push(text);
+    // Push item with its pinned language into queue
+    this.speechQueue.push({ text, lang });
+
     if (!this.isSpeaking) {
-      this.processQueue(lang);
+      this.processQueue();
     }
   }
 
-  private processQueue(lang: "en" | "hi" | "kn") {
+  private processQueue() {
     if (this.speechQueue.length === 0) {
       this.isSpeaking = false;
+      this.activeUtterance = null;
+      if (this.watchdogTimer) {
+        clearTimeout(this.watchdogTimer);
+        this.watchdogTimer = null;
+      }
       return;
     }
 
     this.isSpeaking = true;
-    const textToSpeak = this.speechQueue.shift();
-    if (!textToSpeak) {
-      this.isSpeaking = false;
+    const item = this.speechQueue.shift();
+    if (!item || !item.text) {
+      this.processQueue();
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    utterance.volume = this.volume;
-    utterance.rate = 0.95; // slightly slower for maximum clarity in noisy street food stall
-    utterance.pitch = 1.0;
+    const { text, lang } = item;
 
-    // Pick best matching voice
-    const voices = window.speechSynthesis.getVoices();
-    let matchedVoice: SpeechSynthesisVoice | undefined;
+    try {
+      // Reset any stuck speech synthesizer before starting
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
 
-    if (lang === "hi") {
-      utterance.lang = "hi-IN";
-      matchedVoice = voices.find((v) => v.lang.startsWith("hi") || v.name.toLowerCase().includes("hindi"));
-    } else if (lang === "kn") {
-      utterance.lang = "kn-IN";
-      matchedVoice = voices.find((v) => v.lang.startsWith("kn") || v.name.toLowerCase().includes("kannada"));
-    } else {
-      utterance.lang = "en-IN";
-      matchedVoice = voices.find((v) => v.lang.startsWith("en-IN") || v.name.toLowerCase().includes("india"));
-    }
+      const utterance = new SpeechSynthesisUtterance(text);
+      this.activeUtterance = utterance;
 
-    if (matchedVoice) {
-      utterance.voice = matchedVoice;
-    }
+      utterance.volume = this.volume;
+      utterance.rate = 0.95; // slightly deliberate for maximum vendor soundbox clarity
+      utterance.pitch = 1.0;
 
-    utterance.onend = () => {
-      setTimeout(() => {
-        this.processQueue(lang);
-      }, 300);
-    };
+      const matchedVoice = this.getBestVoice(lang);
 
-    utterance.onerror = (e) => {
-      console.warn("Speech synthesis error:", e);
+      if (lang === "en") {
+        utterance.lang = matchedVoice ? matchedVoice.lang : "en-IN";
+      } else if (lang === "hi") {
+        utterance.lang = matchedVoice ? matchedVoice.lang : "hi-IN";
+      } else if (lang === "kn") {
+        utterance.lang = matchedVoice ? matchedVoice.lang : "kn-IN";
+      }
+
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      const advanceQueue = () => {
+        if (this.watchdogTimer) {
+          clearTimeout(this.watchdogTimer);
+          this.watchdogTimer = null;
+        }
+        this.activeUtterance = null;
+        setTimeout(() => {
+          this.processQueue();
+        }, 200);
+      };
+
+      utterance.onend = () => {
+        advanceQueue();
+      };
+
+      utterance.onerror = (e) => {
+        console.warn("Speech synthesis notice:", e);
+        advanceQueue();
+      };
+
+      // Watchdog timer: prevent Chrome background bug from locking the queue
+      this.watchdogTimer = setTimeout(() => {
+        if (this.isSpeaking) {
+          console.warn("Speech synthesis watchdog triggered, advancing queue.");
+          advanceQueue();
+        }
+      }, 7000);
+
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      console.warn("Speech execution error:", e);
       this.isSpeaking = false;
-      this.processQueue(lang);
-    };
-
-    window.speechSynthesis.speak(utterance);
+      this.activeUtterance = null;
+    }
   }
 
   public stopAll() {
     this.speechQueue = [];
     this.isSpeaking = false;
+    this.activeUtterance = null;
+    if (this.watchdogTimer) {
+      clearTimeout(this.watchdogTimer);
+      this.watchdogTimer = null;
+    }
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // Ignore cancel errors
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Language } from "./types";
+import { numberToWordsEnglish } from "./audio";
 
 export const translations = {
   en: {
@@ -52,12 +53,12 @@ export const translations = {
 
     // Voice announcement texts
     voice: {
-      success: (amount: number) => `Payment received. Rupees ${amount}.`,
+      success: (amount: number) => `Payment received: ${numberToWordsEnglish(amount)} rupees.`,
       pending: () => `Payment is still pending. Please wait for confirmation.`,
       failed: () => `Payment not received. Please check again.`,
       fakeAlert: () => `Alert! Unverified payment detected. Do not release food.`,
       offlineAlert: () => `Warning: Device is offline. Payment cannot be verified right now.`,
-      testVoice: () => `PaySure voice announcement system is active and ready.`,
+      testVoice: () => `PaySure English voice announcement system is active and ready.`,
     },
 
     // Common actions
