@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1c3d",
+  themeColor: "#080f1d",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-slate-50 text-slate-900 flex flex-col antialiased">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className="min-h-screen bg-slate-50 dark:bg-[#070e1b] text-slate-900 dark:text-slate-100 flex flex-col antialiased transition-colors duration-200">
         <PaySureProvider>
           <DemoBanner />
           <OfflineBanner />

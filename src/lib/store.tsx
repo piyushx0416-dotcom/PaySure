@@ -13,6 +13,7 @@ import {
   TransactionStatus,
   PaymentSource,
   TransactionStepLog,
+  ThemeMode,
 } from "./types";
 import {
   initialVendorProfile,
@@ -47,6 +48,10 @@ interface PaySureContextType {
   notifications: NotificationItem[];
   language: Language;
   setLanguage: (lang: Language) => void;
+  themeMode: ThemeMode;
+  setThemeMode: (mode: ThemeMode) => void;
+  effectiveTheme: "dark" | "light";
+  toggleTheme: () => void;
   networkCondition: NetworkCondition;
   setNetworkCondition: (cond: NetworkCondition) => void;
   offlineQueue: Transaction[];
@@ -80,10 +85,44 @@ export const PaySureProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [fraudAlerts, setFraudAlerts] = useState<FraudAlert[]>(initialFraudAlerts);
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
   const [language, setLanguageState] = useState<Language>("en");
+  const [themeMode, setThemeModeState] = useState<ThemeMode>("dark"); // Default dark mode!
+  const [systemIsDark, setSystemIsDark] = useState<boolean>(true);
   const [networkCondition, setNetworkConditionState] = useState<NetworkCondition>("ONLINE");
   const [offlineQueue, setOfflineQueue] = useState<Transaction[]>([]);
   const [recentLogs, setRecentLogs] = useState<TransactionStepLog[]>([]);
   const [activeAlertModal, setActiveAlertModal] = useState<Transaction | null>(null);
+
+  // Detect system preference
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setSystemIsDark(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => {
+      setSystemIsDark(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  // Compute effective theme ("dark" or "light")
+  const effectiveTheme: "dark" | "light" = useMemo(() => {
+    if (themeMode === "system") {
+      return systemIsDark ? "dark" : "light";
+    }
+    return themeMode;
+  }, [themeMode, systemIsDark]);
+
+  // Apply effective theme to html element classList
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (effectiveTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [effectiveTheme]);
 
   // Sync state with localStorage for persistence across reloads
   useEffect(() => {
@@ -97,6 +136,7 @@ export const PaySureProvider: React.FC<{ children: React.ReactNode }> = ({ child
         if (parsed.fraudAlerts) setFraudAlerts(parsed.fraudAlerts);
         if (parsed.notifications) setNotifications(parsed.notifications);
         if (parsed.language) setLanguageState(parsed.language);
+        if (parsed.themeMode) setThemeModeState(parsed.themeMode);
       }
     } catch (e) {
       console.warn("Could not load from localStorage:", e);
@@ -114,16 +154,28 @@ export const PaySureProvider: React.FC<{ children: React.ReactNode }> = ({ child
           fraudAlerts,
           notifications,
           language,
+          themeMode,
         })
       );
     } catch (e) {
       console.warn("Could not save to localStorage:", e);
     }
-  }, [vendor, transactions, orders, fraudAlerts, notifications, language]);
+  }, [vendor, transactions, orders, fraudAlerts, notifications, language, themeMode]);
 
   useEffect(() => {
     saveToStorage();
   }, [saveToStorage]);
+
+  const setThemeMode = (mode: ThemeMode) => {
+    setThemeModeState(mode);
+    setVendor((prev) => ({ ...prev, themeMode: mode }));
+  };
+
+  const toggleTheme = () => {
+    if (themeMode === "dark") setThemeMode("light");
+    else if (themeMode === "light") setThemeMode("system");
+    else setThemeMode("dark");
+  };
 
   // Audio setup updates
   useEffect(() => {
@@ -493,6 +545,7 @@ export const PaySureProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setFraudAlerts(initialFraudAlerts);
     setNotifications(initialNotifications);
     setLanguageState("en");
+    setThemeModeState("dark");
     setNetworkConditionState("ONLINE");
     setOfflineQueue([]);
     setRecentLogs([]);
@@ -519,6 +572,10 @@ export const PaySureProvider: React.FC<{ children: React.ReactNode }> = ({ child
         notifications,
         language,
         setLanguage,
+        themeMode,
+        setThemeMode,
+        effectiveTheme,
+        toggleTheme,
         networkCondition,
         setNetworkCondition,
         offlineQueue,

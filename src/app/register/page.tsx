@@ -48,29 +48,29 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070e1b] flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link href="/" className="inline-flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md">
             <ShieldCheck className="w-6 h-6" />
           </div>
-          <span className="text-2xl font-black text-navy-950 tracking-tight">PaySure</span>
+          <span className="text-2xl font-black text-navy-950 dark:text-white tracking-tight">PaySure</span>
         </Link>
-        <h2 className="mt-4 text-2xl font-bold text-navy-950">Register New Street Vendor</h2>
-        <p className="mt-1 text-xs text-slate-500">
+        <h2 className="mt-4 text-2xl font-bold text-navy-950 dark:text-white">Register New Street Vendor</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Set up your digital UPI soundbox and start verifying transactions instantly.
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg px-4">
-        <div className="bg-white py-8 px-6 shadow-xl shadow-slate-200/50 rounded-2xl border border-slate-200 sm:px-10">
+        <div className="bg-white dark:bg-[#0c1628] py-8 px-6 shadow-xl dark:shadow-black/50 rounded-2xl border border-slate-200 dark:border-slate-800 sm:px-10 transition-colors">
           {success ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+              <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h3 className="text-xl font-bold text-navy-950">Registration Complete!</h3>
-              <p className="text-xs text-slate-500 mt-2">
+              <h3 className="text-xl font-bold text-navy-950 dark:text-white">Registration Complete!</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                 Setting up Ramesh Kumar&apos;s stall soundbox profile and loading dashboard...
               </p>
             </div>
@@ -78,23 +78,23 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Vendor Full Name</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Vendor Full Name</label>
                   <input
                     type="text"
                     value={form.fullName}
                     onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-                    className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Business / Stall Name</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Business / Stall Name</label>
                   <input
                     type="text"
                     value={form.businessName}
                     onChange={(e) => setForm({ ...form, businessName: e.target.value })}
-                    className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                     required
                   />
                 </div>
@@ -102,9 +102,9 @@ export default function RegisterPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Mobile Number (10 Digits)</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Mobile Number (10 Digits)</label>
                   <div className="mt-1 flex rounded-lg shadow-xs">
-                    <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-slate-300 bg-slate-50 text-slate-500 text-xs font-semibold">
+                    <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-semibold">
                       +91
                     </span>
                     <input
@@ -112,19 +112,19 @@ export default function RegisterPage() {
                       pattern="[6-9][0-9]{9}"
                       value={form.mobile}
                       onChange={(e) => setForm({ ...form, mobile: e.target.value })}
-                      className="block w-full px-3 py-2 border border-slate-300 rounded-r-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                      className="block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-r-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Email Address</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Email Address</label>
                   <input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                     required
                   />
                 </div>
@@ -132,11 +132,11 @@ export default function RegisterPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Business Category</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Business Category</label>
                   <select
                     value={form.businessCategory}
                     onChange={(e) => setForm({ ...form, businessCategory: e.target.value })}
-                    className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                    className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white dark:bg-slate-900"
                   >
                     <option value="Street Food & Fast Bites">Street Food & Fast Bites</option>
                     <option value="Tea & Snacks Stall">Tea & Snacks Stall</option>
@@ -146,11 +146,11 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700">Preferred Soundbox Language</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Preferred Soundbox Language</label>
                   <select
                     value={form.preferredLanguage}
                     onChange={(e) => setForm({ ...form, preferredLanguage: e.target.value as Language })}
-                    className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
+                    className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white dark:bg-slate-900"
                   >
                     <option value="en">English</option>
                     <option value="hi">हिंदी (Hindi)</option>
@@ -160,12 +160,12 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700">Create Password</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">Create Password</label>
                 <input
                   type="password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg text-sm text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  className="mt-1 block w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-sm text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-hidden"
                   required
                 />
               </div>
@@ -174,21 +174,21 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow transition flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow transition flex items-center justify-center gap-2 active:scale-95"
                 >
-                  <span>{loading ? "Registering Stall..." : "Create Account & Open Dashboard"}</span>
+                  <span>{loading ? "Activating Stall..." : "Register Stall & Launch Soundbox"}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-
-              <div className="text-center text-xs text-slate-500 pt-2">
-                Already registered?{" "}
-                <Link href="/login" className="font-bold text-emerald-600 hover:underline">
-                  Sign in here
-                </Link>
-              </div>
             </form>
           )}
+
+          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
+            Already registered with PaySure?{" "}
+            <Link href="/login" className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Vendor Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>

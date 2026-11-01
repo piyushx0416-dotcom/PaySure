@@ -152,17 +152,17 @@ export default function SimulationLabPage() {
     <DashboardLayoutWrapper title={t.nav.simulation}>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
           <div>
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-amber-100 text-amber-800 rounded-xl">
+              <div className="p-2 bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-400 rounded-xl">
                 <FlaskConical className="w-5 h-5" />
               </div>
-              <h2 className="text-xl font-black text-navy-950">
+              <h2 className="text-xl font-black text-navy-950 dark:text-white">
                 {t.simulationLab.title}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
               {t.simulationLab.subtitle}
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function SimulationLabPage() {
                   resetDemoData();
                 }
               }}
-              className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition"
+              className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset State</span>
@@ -183,18 +183,18 @@ export default function SimulationLabPage() {
         </div>
 
         {/* 8 ONE-CLICK DEMO PRESETS (Essential for College Showcase) */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-bold text-navy-950 text-sm flex items-center gap-2">
+              <h3 className="font-bold text-navy-950 dark:text-white text-sm flex items-center gap-2">
                 <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
                 <span>One-Click College Demonstration Presets</span>
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Trigger realistic edge cases to observe immediate voice announcements, fraud alerts, and dashboard updates.
               </p>
             </div>
-            <span className="text-[10px] font-bold text-navy-900 bg-navy-100 px-2.5 py-1 rounded-full uppercase">
+            <span className="text-[10px] font-bold text-navy-900 dark:text-amber-300 bg-navy-100 dark:bg-amber-950/60 px-2.5 py-1 rounded-full uppercase border dark:border-amber-800/40">
               8 Scenarios
             </span>
           </div>
@@ -204,14 +204,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(1)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/60 dark:bg-emerald-950/30 hover:bg-emerald-100/70 dark:hover:bg-emerald-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-emerald-800">
+              <div className="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-400">
                 <span>1. Normal Success</span>
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">₹150 Masala Dosa Combo</div>
-              <p className="text-[11px] text-emerald-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">₹150 Masala Dosa Combo</div>
+              <p className="text-[11px] text-emerald-700 dark:text-emerald-400/80 mt-1 leading-snug">
                 Verified by NPCI. Loud voice alert & green modal.
               </p>
             </button>
@@ -220,14 +220,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(2)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/60 dark:bg-amber-950/30 hover:bg-amber-100/70 dark:hover:bg-amber-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-amber-800">
+              <div className="flex items-center justify-between text-xs font-bold text-amber-800 dark:text-amber-400">
                 <span>2. Delayed Payment</span>
-                <Clock className="w-4 h-4 text-amber-600 animate-spin" />
+                <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400 animate-spin" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">₹80 Rava Idli Timeout</div>
-              <p className="text-[11px] text-amber-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">₹80 Rava Idli Timeout</div>
+              <p className="text-[11px] text-amber-700 dark:text-amber-400/80 mt-1 leading-snug">
                 Bank delay. Amber pending status with chime warning.
               </p>
             </button>
@@ -236,14 +236,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(3)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/60 hover:bg-rose-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-rose-200 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 hover:bg-rose-100/70 dark:hover:bg-rose-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-rose-800">
+              <div className="flex items-center justify-between text-xs font-bold text-rose-800 dark:text-rose-400">
                 <span>3. Failed Payment</span>
-                <XCircle className="w-4 h-4 text-rose-600" />
+                <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">₹200 Declined Funds</div>
-              <p className="text-[11px] text-rose-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">₹200 Declined Funds</div>
+              <p className="text-[11px] text-rose-700 dark:text-rose-400/80 mt-1 leading-snug">
                 Issuer error. Cautionary double buzzer & voice: &ldquo;Payment not received.&rdquo;
               </p>
             </button>
@@ -252,14 +252,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(4)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-purple-200 bg-purple-50/60 hover:bg-purple-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-purple-200 dark:border-purple-800/60 bg-purple-50/60 dark:bg-purple-950/30 hover:bg-purple-100/70 dark:hover:bg-purple-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-purple-800">
+              <div className="flex items-center justify-between text-xs font-bold text-purple-800 dark:text-purple-400">
                 <span>4. Duplicate UTR Replay</span>
-                <ShieldAlert className="w-4 h-4 text-purple-600" />
+                <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">Replay Attack</div>
-              <p className="text-[11px] text-purple-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">Replay Attack</div>
+              <p className="text-[11px] text-purple-700 dark:text-purple-400/80 mt-1 leading-snug">
                 Customer reuses previously paid UTR. Caught by Idempotency engine.
               </p>
             </button>
@@ -268,14 +268,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(5)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-rose-300 bg-rose-100/60 hover:bg-rose-200/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-rose-300 dark:border-rose-700/80 bg-rose-100/60 dark:bg-rose-950/40 hover:bg-rose-200/70 dark:hover:bg-rose-900/40 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-rose-900">
+              <div className="flex items-center justify-between text-xs font-bold text-rose-900 dark:text-rose-300">
                 <span>5. Fake Screenshot</span>
-                <AlertTriangle className="w-4 h-4 text-rose-700" />
+                <AlertTriangle className="w-4 h-4 text-rose-700 dark:text-rose-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">₹350 Spoof APK App</div>
-              <p className="text-[11px] text-rose-800 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">₹350 Spoof APK App</div>
+              <p className="text-[11px] text-rose-800 dark:text-rose-300/80 mt-1 leading-snug">
                 Customer claims green tick. PaySure blocks: &ldquo;Do not release food.&rdquo;
               </p>
             </button>
@@ -284,14 +284,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(6)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-amber-300 bg-amber-100/60 hover:bg-amber-200/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-amber-300 dark:border-amber-700/80 bg-amber-100/60 dark:bg-amber-950/40 hover:bg-amber-200/70 dark:hover:bg-amber-900/40 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-amber-900">
+              <div className="flex items-center justify-between text-xs font-bold text-amber-900 dark:text-amber-300">
                 <span>6. Network Drop</span>
-                <WifiOff className="w-4 h-4 text-amber-800" />
+                <WifiOff className="w-4 h-4 text-amber-800 dark:text-amber-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">Stall Internet Offline</div>
-              <p className="text-[11px] text-amber-800 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">Stall Internet Offline</div>
+              <p className="text-[11px] text-amber-800 dark:text-amber-300/80 mt-1 leading-snug">
                 Simulates dead zone. Caches locally; refuses to mark as verified.
               </p>
             </button>
@@ -300,14 +300,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(7)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-teal-200 bg-teal-50/60 hover:bg-teal-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-teal-200 dark:border-teal-800/60 bg-teal-50/60 dark:bg-teal-950/30 hover:bg-teal-100/70 dark:hover:bg-teal-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-teal-800">
+              <div className="flex items-center justify-between text-xs font-bold text-teal-800 dark:text-teal-400">
                 <span>7. Network Restored</span>
-                <Wifi className="w-4 h-4 text-teal-600" />
+                <Wifi className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">Reconnect & Flush Queue</div>
-              <p className="text-[11px] text-teal-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">Reconnect & Flush Queue</div>
+              <p className="text-[11px] text-teal-700 dark:text-teal-400/80 mt-1 leading-snug">
                 Re-establishes NPCI tunnel. Offline payments sync & announce.
               </p>
             </button>
@@ -316,14 +316,14 @@ export default function SimulationLabPage() {
             <button
               onClick={() => runPreset(8)}
               disabled={isExecuting}
-              className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 text-left transition group active:scale-98"
+              className="p-3.5 rounded-xl border border-blue-200 dark:border-blue-800/60 bg-blue-50/60 dark:bg-blue-950/30 hover:bg-blue-100/70 dark:hover:bg-blue-950/50 text-left transition group active:scale-98"
             >
-              <div className="flex items-center justify-between text-xs font-bold text-blue-800">
+              <div className="flex items-center justify-between text-xs font-bold text-blue-800 dark:text-blue-400">
                 <span>8. Rapid Fire Rush</span>
-                <Layers className="w-4 h-4 text-blue-600" />
+                <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               </div>
-              <div className="text-xs font-black text-navy-950 mt-1">3 Customers at Once</div>
-              <p className="text-[11px] text-blue-700 mt-1 leading-snug">
+              <div className="text-xs font-black text-navy-950 dark:text-white mt-1">3 Customers at Once</div>
+              <p className="text-[11px] text-blue-700 dark:text-blue-400/80 mt-1 leading-snug">
                 Sequential audio speech queue tests non-overlapping announcements.
               </p>
             </button>
@@ -333,16 +333,16 @@ export default function SimulationLabPage() {
         {/* Custom Simulator Console & Form */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Simulation Config Form */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
-            <h3 className="font-bold text-navy-950 text-sm mb-4 flex items-center gap-2">
-              <FlaskConical className="w-4 h-4 text-emerald-600" />
+          <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
+            <h3 className="font-bold text-navy-950 dark:text-white text-sm mb-4 flex items-center gap-2">
+              <FlaskConical className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Custom Payment Scenario Builder</span>
             </h3>
 
             <div className="space-y-4 text-xs">
               {/* Amount */}
               <div>
-                <label className="block font-bold text-slate-700 mb-1.5">
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                   {t.simulationLab.amountLabel}
                 </label>
                 <div className="grid grid-cols-5 gap-2 mb-2">
@@ -353,8 +353,8 @@ export default function SimulationLabPage() {
                       onClick={() => setAmount(amt)}
                       className={`py-1.5 rounded-lg font-bold border transition ${
                         amount === amt
-                          ? "bg-navy-900 text-white border-navy-900"
-                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                          ? "bg-navy-900 dark:bg-emerald-600 text-white border-navy-900 dark:border-emerald-500"
+                          : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
                       }`}
                     >
                       ₹{amt}
@@ -366,13 +366,13 @@ export default function SimulationLabPage() {
                   min="1"
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-xl font-bold text-navy-950"
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl font-bold text-navy-950 dark:text-white"
                 />
               </div>
 
               {/* Status Outcome */}
               <div>
-                <label className="block font-bold text-slate-700 mb-1.5">
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                   {t.simulationLab.statusLabel}
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -383,8 +383,8 @@ export default function SimulationLabPage() {
                       onClick={() => setStatus(st)}
                       className={`py-2 rounded-lg font-bold border transition ${
                         status === st
-                          ? "bg-navy-900 text-white border-navy-900"
-                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                          ? "bg-navy-900 dark:bg-emerald-600 text-white border-navy-900 dark:border-emerald-500"
+                          : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
                       }`}
                     >
                       {st}
@@ -395,11 +395,11 @@ export default function SimulationLabPage() {
 
               {/* App Source */}
               <div>
-                <label className="block font-bold text-slate-700 mb-1.5">Payment App Source</label>
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1.5">Payment App Source</label>
                 <select
                   value={source}
                   onChange={(e) => setSource(e.target.value as PaymentSource)}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-xl bg-white font-semibold text-navy-950"
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 font-semibold text-navy-950 dark:text-white"
                 >
                   <option value="PHONEPE">PhonePe</option>
                   <option value="GOOGLE_PAY">Google Pay</option>
@@ -410,7 +410,7 @@ export default function SimulationLabPage() {
               </div>
 
               {/* Edge Case Toggles */}
-              <div className="pt-2 border-t border-slate-100 space-y-2">
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -418,7 +418,7 @@ export default function SimulationLabPage() {
                     onChange={(e) => setIsFakeScreenshot(e.target.checked)}
                     className="w-4 h-4 text-rose-600 rounded"
                   />
-                  <span className="font-semibold text-rose-800">
+                  <span className="font-semibold text-rose-800 dark:text-rose-400">
                     Simulate Fake Screenshot Attempt (Customer shows spoof app tick)
                   </span>
                 </label>
@@ -430,7 +430,7 @@ export default function SimulationLabPage() {
                     onChange={(e) => setIsAmountMismatch(e.target.checked)}
                     className="w-4 h-4 text-amber-600 rounded"
                   />
-                  <span className="font-semibold text-amber-800">
+                  <span className="font-semibold text-amber-800 dark:text-amber-400">
                     Simulate Amount Tampering (Customer claims ₹150, bank credited ₹1)
                   </span>
                 </label>
@@ -440,7 +440,7 @@ export default function SimulationLabPage() {
               <button
                 onClick={handleExecute}
                 disabled={isExecuting}
-                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold rounded-xl shadow transition flex items-center justify-center gap-2"
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold rounded-xl shadow transition flex items-center justify-center gap-2 active:scale-98"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>{isExecuting ? "Processing Scenario..." : t.simulationLab.generateBtn}</span>
@@ -449,16 +449,16 @@ export default function SimulationLabPage() {
           </div>
 
           {/* Live Step-by-Step Execution Console */}
-          <div className="bg-navy-950 text-slate-200 p-6 rounded-2xl border border-navy-800 shadow-xl flex flex-col justify-between font-mono text-xs">
+          <div className="bg-navy-950 dark:bg-[#070e1b] text-slate-200 p-6 rounded-2xl border border-navy-800 dark:border-slate-800 shadow-xl flex flex-col justify-between font-mono text-xs">
             <div>
-              <div className="flex items-center justify-between pb-3 border-b border-navy-800 mb-3">
+              <div className="flex items-center justify-between pb-3 border-b border-navy-800 dark:border-slate-800 mb-3">
                 <div className="flex items-center gap-2">
                   <Terminal className="w-4 h-4 text-emerald-400" />
                   <span className="font-bold text-white uppercase text-[11px]">
                     Live Verification Console
                   </span>
                 </div>
-                <span className="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                <span className="text-[10px] text-emerald-400 bg-emerald-950 dark:bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
                   REAL-TIME TRACE
                 </span>
               </div>
@@ -474,10 +474,10 @@ export default function SimulationLabPage() {
                       key={index}
                       className={`p-2 rounded-lg border transition ${
                         log.status === "SUCCESS"
-                          ? "bg-navy-900/80 border-emerald-900/60 text-emerald-300"
+                          ? "bg-navy-900/80 dark:bg-slate-900/80 border-emerald-900/60 text-emerald-300"
                           : log.status === "WARNING"
-                          ? "bg-amber-950/40 border-amber-900/60 text-amber-300"
-                          : "bg-rose-950/50 border-rose-900/60 text-rose-300"
+                          ? "bg-amber-950/40 dark:bg-amber-950/60 border-amber-900/60 text-amber-300"
+                          : "bg-rose-950/50 dark:bg-rose-950/70 border-rose-900/60 text-rose-300"
                       }`}
                     >
                       <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1">
@@ -491,7 +491,7 @@ export default function SimulationLabPage() {
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-navy-800 flex items-center justify-between text-[10px] text-slate-400">
+            <div className="mt-4 pt-3 border-t border-navy-800 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-400">
               <span>NPCI Verification Node Protocol v2.4</span>
               <span className="text-emerald-400 font-bold">100% Deterministic</span>
             </div>

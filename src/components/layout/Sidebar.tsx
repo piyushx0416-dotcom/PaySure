@@ -134,22 +134,22 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       )}
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-white border-r border-slate-200 flex flex-col transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-white dark:bg-[#091122] border-r border-slate-200 dark:border-slate-800/80 flex flex-col transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-sm shadow-emerald-500/20">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-navy-950 text-lg tracking-tight flex items-center gap-1">
+              <span className="font-extrabold text-navy-950 dark:text-white text-lg tracking-tight flex items-center gap-1">
                 PaySure
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               </span>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
                 UPI Verification Engine
               </p>
             </div>
@@ -157,34 +157,34 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <Link
             href="/"
             title="Go to Public Landing Page"
-            className="p-1.5 text-slate-400 hover:text-navy-900 rounded-lg hover:bg-slate-100 transition"
+            className="p-1.5 text-slate-400 hover:text-navy-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
           >
             <Home className="w-4 h-4" />
           </Link>
         </div>
 
         {/* Vendor Stall Card */}
-        <div className="mx-3 my-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+        <div className="mx-3 my-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-navy-900 text-white font-bold flex items-center justify-center text-sm shadow">
+            <div className="w-10 h-10 rounded-full bg-navy-900 dark:bg-emerald-600 text-white font-bold flex items-center justify-center text-sm shadow">
               RK
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-xs font-bold text-navy-950 truncate">
+              <div className="text-xs font-bold text-navy-950 dark:text-white truncate">
                 {vendor.businessName}
               </div>
-              <div className="text-[11px] text-slate-500 truncate flex items-center gap-1">
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate flex items-center gap-1">
                 <span>{vendor.name}</span>
                 <span>•</span>
-                <span className="text-emerald-700 font-medium">Stall #14</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-medium">Stall #14</span>
               </div>
             </div>
           </div>
-          <div className="mt-2.5 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-600">
-            <div className="flex items-center gap-1 font-mono text-slate-700">
+          <div className="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-1 font-mono text-slate-700 dark:text-slate-300">
               {vendor.upiVpa}
             </div>
-            <div className="flex items-center gap-1 text-emerald-600 font-medium">
+            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
               <Volume2 className="w-3.5 h-3.5" />
               <span>{vendor.soundboxVolume}% Vol</span>
             </div>
@@ -204,20 +204,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold transition ${
                   isActive
-                    ? "bg-navy-900 text-white shadow-sm"
+                    ? "bg-navy-900 dark:bg-emerald-600 text-white shadow-sm"
                     : item.highlight
-                    ? "bg-emerald-50 text-emerald-900 hover:bg-emerald-100 border border-emerald-200/80"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-navy-950"
+                    ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/70 border border-emerald-200/80 dark:border-emerald-800/50"
+                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-navy-950 dark:hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <Icon
                     className={`w-4 h-4 ${
                       isActive
-                        ? "text-emerald-400"
+                        ? "text-emerald-400 dark:text-white"
                         : item.highlight
-                        ? "text-emerald-600"
-                        : "text-slate-500"
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-slate-500 dark:text-slate-400"
                     }`}
                   />
                   <span>{item.label}</span>
@@ -236,7 +236,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                       {item.badge}
                     </span>
                   )}
-                  {!isActive && <ChevronRight className="w-3.5 h-3.5 text-slate-400 opacity-60" />}
+                  {!isActive && <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 opacity-60" />}
                 </div>
               </Link>
             );
@@ -244,15 +244,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="p-3 border-t border-slate-200 bg-slate-50/50 flex items-center justify-between">
+        <div className="p-3 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/50 dark:bg-[#070e1b] flex items-center justify-between">
           <Link
             href="/login"
-            className="flex items-center gap-2 text-xs font-medium text-slate-600 hover:text-rose-600 transition"
+            className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition"
           >
             <LogOut className="w-4 h-4" />
             <span>Switch / Logout</span>
           </Link>
-          <span className="text-[10px] text-slate-400 font-mono">v1.4.0 (Demo)</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">v1.4.0 (Demo)</span>
         </div>
       </aside>
     </>

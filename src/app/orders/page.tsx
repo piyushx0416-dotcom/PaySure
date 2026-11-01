@@ -112,17 +112,17 @@ export default function OrderManagementPage() {
     <DashboardLayoutWrapper title={t.nav.orders}>
       <div className="space-y-6">
         {/* Header */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
           <div>
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-emerald-100 text-emerald-800 rounded-xl">
+              <div className="p-2 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-400 rounded-xl">
                 <UtensilsCrossed className="w-5 h-5" />
               </div>
-              <h2 className="text-xl font-black text-navy-950">
+              <h2 className="text-xl font-black text-navy-950 dark:text-white">
                 {t.ordersSection.title}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
               {t.ordersSection.subtitle}
             </p>
           </div>
@@ -130,7 +130,7 @@ export default function OrderManagementPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => exportOrdersToCSV(orders)}
-              className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition"
+              className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export Orders CSV</span>
@@ -150,25 +150,25 @@ export default function OrderManagementPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Active Orders List */}
           <div className="lg:col-span-2 space-y-3">
-            <h3 className="font-bold text-navy-950 text-sm flex items-center justify-between">
+            <h3 className="font-bold text-navy-950 dark:text-white text-sm flex items-center justify-between">
               <span>Current Stall Orders ({orders.length})</span>
-              <span className="text-xs text-slate-500 font-normal">Auto-links to matching UPI credits</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">Auto-links to matching UPI credits</span>
             </h3>
 
             {orders.map((ord) => (
               <div
                 key={ord.id}
-                className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs hover:border-slate-300 transition flex flex-col justify-between"
+                className="bg-white dark:bg-[#0c1628] p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition flex flex-col justify-between"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="font-mono font-bold text-navy-950 text-base">
+                    <span className="font-mono font-bold text-navy-950 dark:text-white text-base">
                       #{ord.orderNumber}
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-300 font-semibold">
                       {ord.customerName}
                     </span>
-                    <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">
+                    <span className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-mono">
                       {ord.tableOrToken}
                     </span>
                   </div>
@@ -177,16 +177,16 @@ export default function OrderManagementPage() {
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                         ord.paymentStatus === "SUCCESSFUL"
-                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                          ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/40"
                           : ord.paymentStatus === "PENDING"
-                          ? "bg-amber-50 text-amber-700 border border-amber-200"
-                          : "bg-rose-50 text-rose-700 border border-rose-200"
+                          ? "bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/40"
+                          : "bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800/40"
                       }`}
                     >
                       {ord.paymentStatus === "SUCCESSFUL" ? (
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                       ) : (
-                        <Clock className="w-3 h-3 text-amber-600" />
+                        <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                       )}
                       <span>Payment: {ord.paymentStatus}</span>
                     </span>
@@ -194,10 +194,10 @@ export default function OrderManagementPage() {
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                         ord.orderStatus === "SERVED"
-                          ? "bg-navy-900 text-white"
+                          ? "bg-navy-900 dark:bg-emerald-600 text-white"
                           : ord.orderStatus === "PREPARING"
-                          ? "bg-blue-50 text-blue-700 border border-blue-200"
-                          : "bg-slate-100 text-slate-700"
+                          ? "bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800/40"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
                       }`}
                     >
                       Order: {ord.orderStatus}
@@ -208,27 +208,27 @@ export default function OrderManagementPage() {
                 {/* Items */}
                 <div className="py-3 text-xs space-y-1">
                   {ord.items.map((it, idx) => (
-                    <div key={idx} className="flex justify-between text-slate-700">
+                    <div key={idx} className="flex justify-between text-slate-700 dark:text-slate-300">
                       <span>
                         {it.quantity}x {it.name}
                       </span>
-                      <span className="font-semibold">{formatINR(it.price * it.quantity)}</span>
+                      <span className="font-semibold text-navy-950 dark:text-white">{formatINR(it.price * it.quantity)}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Footer Controls */}
-                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
                   <div>
-                    <span className="text-slate-400 text-[10px] uppercase font-bold block">Total Amount</span>
-                    <span className="text-lg font-black text-navy-950">{formatINR(ord.totalAmount)}</span>
+                    <span className="text-slate-400 dark:text-slate-500 text-[10px] uppercase font-bold block">Total Amount</span>
+                    <span className="text-lg font-black text-navy-950 dark:text-white">{formatINR(ord.totalAmount)}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {ord.paymentStatus === "PENDING" && (
                       <button
                         onClick={() => handleQuickPayForOrder(ord.id, ord.totalAmount)}
-                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs flex items-center gap-1.5"
+                        className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs flex items-center gap-1.5 active:scale-98"
                       >
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>Simulate Customer Pay</span>
@@ -238,13 +238,13 @@ export default function OrderManagementPage() {
                     {ord.orderStatus !== "SERVED" ? (
                       <button
                         onClick={() => updateOrderStatus(ord.id, "SERVED")}
-                        className="px-3 py-1.5 bg-navy-900 hover:bg-navy-950 text-white rounded-lg text-xs font-semibold transition"
+                        className="px-3 py-1.5 bg-navy-900 dark:bg-slate-800 hover:bg-navy-950 dark:hover:bg-slate-700 text-white rounded-lg text-xs font-semibold transition"
                       >
                         {t.ordersSection.markServed}
                       </button>
                     ) : (
-                      <span className="text-emerald-700 font-bold text-xs flex items-center gap-1">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <span className="text-emerald-700 dark:text-emerald-400 font-bold text-xs flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         Served & Completed
                       </span>
                     )}
@@ -255,53 +255,53 @@ export default function OrderManagementPage() {
           </div>
 
           {/* Quick Counter POS Menu (Fast Tapping) */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs h-fit sticky top-20">
-            <h3 className="font-bold text-navy-950 text-sm mb-2 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-emerald-600" />
+          <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs h-fit sticky top-20 transition-colors">
+            <h3 className="font-bold text-navy-950 dark:text-white text-sm mb-2 flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Tap Stall Menu to Build Order</span>
             </h3>
-            <p className="text-xs text-slate-500 mb-4">One-tap items for Ramesh Kumar&apos;s tiffin stall</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">One-tap items for Ramesh Kumar&apos;s tiffin stall</p>
 
             <div className="grid grid-cols-2 gap-2 mb-4">
               {STALL_MENU.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => addItem(item.name)}
-                  className="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-left transition"
+                  className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600 text-left transition active:scale-98"
                 >
-                  <div className="text-xs font-bold text-navy-950 truncate">{item.name}</div>
-                  <div className="text-xs font-semibold text-emerald-700 mt-0.5">₹{item.price}</div>
+                  <div className="text-xs font-bold text-navy-950 dark:text-white truncate">{item.name}</div>
+                  <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-0.5">₹{item.price}</div>
                 </button>
               ))}
             </div>
 
             {/* Current Draft Cart */}
-            <div className="pt-3 border-t border-slate-200 text-xs">
-              <div className="font-bold text-navy-950 mb-2 flex justify-between">
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 text-xs">
+              <div className="font-bold text-navy-950 dark:text-white mb-2 flex justify-between">
                 <span>Selected Items ({cartItems.length})</span>
-                <span className="text-emerald-700">{formatINR(cartTotal)}</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-black">{formatINR(cartTotal)}</span>
               </div>
 
               {cartItems.length === 0 ? (
-                <div className="text-slate-400 text-center py-4 text-[11px]">
+                <div className="text-slate-400 dark:text-slate-500 text-center py-4 text-[11px]">
                   No items selected yet. Tap any dish above.
                 </div>
               ) : (
                 <div className="space-y-1.5 mb-4 max-h-36 overflow-y-auto">
                   {cartItems.map((ci) => (
-                    <div key={ci.name} className="flex items-center justify-between bg-slate-50 p-2 rounded-lg">
-                      <span className="truncate pr-2">{ci.name}</span>
+                    <div key={ci.name} className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/80 p-2 rounded-lg">
+                      <span className="truncate pr-2 text-navy-950 dark:text-slate-200">{ci.name}</span>
                       <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={() => removeItem(ci.name)}
-                          className="w-5 h-5 rounded bg-slate-200 hover:bg-slate-300 font-bold flex items-center justify-center"
+                          className="w-5 h-5 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 font-bold flex items-center justify-center text-slate-800 dark:text-white"
                         >
                           -
                         </button>
-                        <span className="font-bold">{ci.quantity}</span>
+                        <span className="font-bold text-navy-950 dark:text-white">{ci.quantity}</span>
                         <button
                           onClick={() => addItem(ci.name)}
-                          className="w-5 h-5 rounded bg-slate-200 hover:bg-slate-300 font-bold flex items-center justify-center"
+                          className="w-5 h-5 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 font-bold flex items-center justify-center text-slate-800 dark:text-white"
                         >
                           +
                         </button>
@@ -314,7 +314,7 @@ export default function OrderManagementPage() {
               {cartItems.length > 0 && (
                 <button
                   onClick={handlePlaceOrder}
-                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition"
+                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition active:scale-98"
                 >
                   Create Order & Await UPI ({formatINR(cartTotal)})
                 </button>

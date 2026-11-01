@@ -50,41 +50,35 @@ export default function VerificationCenterPage() {
     setInputAmount(amt);
   };
 
-  const handleCopyUtr = (utr: string) => {
-    navigator.clipboard.writeText(utr);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <DashboardLayoutWrapper title={t.nav.verify}>
       <div className="space-y-6">
         {/* Verification Engine Hero Header */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
+        <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <div className="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
+                <div className="p-2 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 rounded-xl">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <h2 className="text-lg sm:text-xl font-black text-navy-950">
+                <h2 className="text-lg sm:text-xl font-black text-navy-950 dark:text-white">
                   {t.verification.heading}
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
                 {t.verification.subheading}
               </p>
             </div>
 
-            <div className="px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 flex items-center gap-1.5 self-start">
+            <div className="px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-xs font-bold border border-emerald-200 dark:border-emerald-800/40 flex items-center gap-1.5 self-start">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>NPCI Tunnel Active (Demo)</span>
             </div>
           </div>
 
           {/* Screenshot Warning Callout */}
-          <div className="mt-4 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2.5">
-            <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+          <div className="mt-4 p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-300 flex items-center gap-2.5">
+            <AlertTriangle className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0" />
             <span>
               <strong>Rule #1 for Street Vendors:</strong> {t.verification.screenshotWarning}
             </span>
@@ -93,15 +87,15 @@ export default function VerificationCenterPage() {
 
         {/* Verification Input & Live Search Box */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
-            <h3 className="font-bold text-navy-950 text-sm mb-4">
+          <div className="lg:col-span-2 bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
+            <h3 className="font-bold text-navy-950 dark:text-white text-sm mb-4">
               Query Banking Switch by 12-Digit Reference (UTR)
             </h3>
 
             <form onSubmit={handleVerify} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                     {t.verification.enterUtr}
                   </label>
                   <div className="relative">
@@ -111,7 +105,7 @@ export default function VerificationCenterPage() {
                       value={inputUtr}
                       onChange={(e) => setInputUtr(e.target.value.replace(/\D/g, ""))}
                       maxLength={12}
-                      className="w-full px-3 py-2.5 pl-9 border border-slate-300 rounded-xl text-sm font-mono font-bold text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                      className="w-full px-3 py-2.5 pl-9 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-sm font-mono font-bold text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                       required
                     />
                     <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
@@ -119,7 +113,7 @@ export default function VerificationCenterPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                     Expected Amount (₹)
                   </label>
                   <input
@@ -127,7 +121,7 @@ export default function VerificationCenterPage() {
                     value={inputAmount}
                     onChange={(e) => setInputAmount(Number(e.target.value))}
                     min="1"
-                    className="w-full px-3 py-2.5 border border-slate-300 rounded-xl text-sm font-bold text-navy-950 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="w-full px-3 py-2.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-xl text-sm font-bold text-navy-950 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -137,7 +131,7 @@ export default function VerificationCenterPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2"
+                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2 active:scale-98"
                 >
                   <FileCheck2 className="w-4 h-4" />
                   <span>{loading ? "Verifying with Switch..." : t.verification.verifyBtn}</span>
@@ -149,7 +143,7 @@ export default function VerificationCenterPage() {
                     const sample = transactions[0];
                     if (sample) handleQuickLookup(sample.utr, sample.amount);
                   }}
-                  className="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition"
+                  className="px-3 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition"
                 >
                   Paste Recent UTR
                 </button>
@@ -158,14 +152,14 @@ export default function VerificationCenterPage() {
 
             {/* Verification Result Output */}
             {verifiedResult && (
-              <div className="mt-6 pt-6 border-t border-slate-200">
+              <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
                 <div
                   className={`p-6 rounded-2xl border-2 text-center transition ${
                     verifiedResult.transaction?.status === "SUCCESSFUL"
-                      ? "bg-emerald-50/70 border-emerald-500 text-emerald-950"
+                      ? "bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200"
                       : verifiedResult.transaction?.status === "PENDING"
-                      ? "bg-amber-50/70 border-amber-500 text-amber-950"
-                      : "bg-rose-50/70 border-rose-500 text-rose-950"
+                      ? "bg-amber-50/70 dark:bg-amber-950/40 border-amber-500 text-amber-950 dark:text-amber-200"
+                      : "bg-rose-50/70 dark:bg-rose-950/40 border-rose-500 text-rose-950 dark:text-rose-200"
                   }`}
                 >
                   <div className="w-14 h-14 mx-auto rounded-full flex items-center justify-center mb-3 text-white shadow-sm">
@@ -192,7 +186,7 @@ export default function VerificationCenterPage() {
                       : t.status.failed}
                   </span>
 
-                  <div className="text-3xl sm:text-4xl font-black mt-1">
+                  <div className="text-3xl sm:text-4xl font-black mt-1 text-navy-950 dark:text-white">
                     {formatINR(verifiedResult.transaction?.amount || inputAmount)}
                   </div>
 
@@ -201,24 +195,24 @@ export default function VerificationCenterPage() {
                   </p>
 
                   {verifiedResult.transaction && (
-                    <div className="mt-4 max-w-md mx-auto grid grid-cols-2 gap-2 text-left text-xs bg-white/80 p-3 rounded-xl border border-slate-200">
+                    <div className="mt-4 max-w-md mx-auto grid grid-cols-2 gap-2 text-left text-xs bg-white/80 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
                       <div>
-                        <span className="text-slate-500 block text-[10px] uppercase font-bold">Payer</span>
-                        <span className="font-bold text-navy-950">{verifiedResult.transaction.payerName}</span>
+                        <span className="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Payer</span>
+                        <span className="font-bold text-navy-950 dark:text-white">{verifiedResult.transaction.payerName}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-[10px] uppercase font-bold">App</span>
-                        <span className="font-semibold text-navy-950">{verifiedResult.transaction.source}</span>
+                        <span className="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">App</span>
+                        <span className="font-semibold text-navy-950 dark:text-white">{verifiedResult.transaction.source}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-[10px] uppercase font-bold">Settled At</span>
-                        <span className="font-mono text-slate-700">
+                        <span className="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Settled At</span>
+                        <span className="font-mono text-slate-700 dark:text-slate-300">
                           {formatTime(verifiedResult.transaction.timestamp)}
                         </span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block text-[10px] uppercase font-bold">Security Score</span>
-                        <span className="font-bold text-emerald-600">Risk {verifiedResult.transaction.riskScore}/100</span>
+                        <span className="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Security Score</span>
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400">Risk {verifiedResult.transaction.riskScore}/100</span>
                       </div>
                     </div>
                   )}
@@ -228,12 +222,12 @@ export default function VerificationCenterPage() {
           </div>
 
           {/* Verification Pipeline Step Breakdown */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between">
+          <div className="bg-white dark:bg-[#0c1628] p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between transition-colors">
             <div>
-              <h3 className="font-bold text-navy-950 text-sm mb-3">
+              <h3 className="font-bold text-navy-950 dark:text-white text-sm mb-3">
                 8-Stage Automated Verification Pipeline
               </h3>
-              <p className="text-xs text-slate-500 mb-4">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
                 What happens behind the scenes during every single PaySure verification check:
               </p>
 
@@ -248,13 +242,13 @@ export default function VerificationCenterPage() {
                   { step: 7, title: "Trigger Multilingual Soundbox", desc: "Speaks aloud in vendor language." },
                   { step: 8, title: "Refresh Dashboard Stats", desc: "Verified revenue counter increments." },
                 ].map((s) => (
-                  <li key={s.step} className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-50 border border-slate-100">
+                  <li key={s.step} className="flex items-start gap-2.5 p-2 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
                     <span className="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                       {s.step}
                     </span>
                     <div>
-                      <div className="font-bold text-navy-950 text-[11px]">{s.title}</div>
-                      <div className="text-[10px] text-slate-500">{s.desc}</div>
+                      <div className="font-bold text-navy-950 dark:text-white text-[11px]">{s.title}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400">{s.desc}</div>
                     </div>
                   </li>
                 ))}
