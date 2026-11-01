@@ -1,7 +1,24 @@
 # PaySure — Every Payment. Verified. Every Time.
 ## Smart UPI Payment Verification & Vendor Management Platform
 
-PaySure is a fintech software prototype and Design Thinking project designed to solve real-world payment confirmation challenges faced by India's 10+ million street-food vendors and micro-merchants.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-HTTPS%20Online-success?style=for-the-badge&logo=cloudflare)](https://older-save-graduate-rebecca.trycloudflare.com)
+[![Next.js 14](https://img.shields.io/badge/Next.js-14.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Dark Mode](https://img.shields.io/badge/Theme-Default%20Dark%20%7C%20System-070e1b?style=for-the-badge)](https://older-save-graduate-rebecca.trycloudflare.com)
+
+---
+
+### 🌐 Instant Live Public Access (HTTPS)
+
+Anyone can immediately test and evaluate the PaySure platform without local installation:
+
+- 🚀 **Main Application Portal**: **[https://older-save-graduate-rebecca.trycloudflare.com](https://older-save-graduate-rebecca.trycloudflare.com)**
+- 🔊 **Live Soundbox Kiosk Screen**: **[https://older-save-graduate-rebecca.trycloudflare.com/monitor](https://older-save-graduate-rebecca.trycloudflare.com/monitor)**
+- 🧪 **Interactive Simulation Lab**: **[https://older-save-graduate-rebecca.trycloudflare.com/simulation](https://older-save-graduate-rebecca.trycloudflare.com/simulation)**
+- 🛡️ **Fraud Detection Center**: **[https://older-save-graduate-rebecca.trycloudflare.com/fraud](https://older-save-graduate-rebecca.trycloudflare.com/fraud)**
+- 📊 **Stall Sales Analytics**: **[https://older-save-graduate-rebecca.trycloudflare.com/analytics](https://older-save-graduate-rebecca.trycloudflare.com/analytics)**
+
+*Encrypted with Cloudflare Edge SSL. Accessible on any smartphone, tablet, or desktop browser with zero login friction (1-Click Demo Login as Ramesh Kumar included).*
 
 ---
 
@@ -30,15 +47,19 @@ PaySure completely resolves these issues through **authoritative cryptographic s
    - Crystal-clear voice announcements in **English**, **Hindi (हिंदी)**, and **Kannada (ಕನ್ನಡ)** via the **Web Speech API**.
    - Sequential speech queue to handle rapid burst payments without overlapping audio.
 
-3. **Offline-Resilient Architecture**:
+3. **Dark Mode as Default & System Mode**:
+   - Default deep obsidian fintech dark palette (`#070e1b`) tailored for outdoor street stalls and low glare.
+   - 3-way toggle (Dark, Light, System Auto) adhering to OS preferences.
+
+4. **Offline-Resilient Architecture**:
    - When network drops, PaySure transitions to Offline Mode.
    - Strictly observes the core safety rule: **Never mark an offline payment as authoritatively verified.**
    - Queues offline transactions locally as `OFFLINE_LOCAL_RECORD (Pending)` and automatically synchronizes and announces them upon reconnection.
 
-4. **15 Fully Functional SaaS Pages**:
+5. **15 Fully Functional SaaS Pages**:
    - Landing Page, Vendor Dashboard, Live Soundbox Kiosk Monitor, Payment Verification Center, Transaction History, Simulation Lab, Fraud Detection Center, Order Management, Sales Analytics, Reports, Notifications Center, Vendor Profile, Settings, and Help & Support.
 
-5. **Interactive College Demo Simulation Lab**:
+6. **Interactive College Demo Simulation Lab**:
    - 8 one-click presets simulating delayed payments, failed issuer responses, duplicate UTRs, fake screenshots, offline dropouts, network restoration, and rapid order bursts.
    - Live step-by-step pipeline execution console with millisecond timestamps.
 
@@ -66,6 +87,7 @@ PaySure completely resolves these issues through **authoritative cryptographic s
 ### Installation
 ```bash
 # Clone or navigate to the repository
+git clone https://github.com/piyushx0416-dotcom/PaySure.git
 cd PaySure
 
 # Install dependencies
