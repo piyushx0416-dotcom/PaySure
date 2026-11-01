@@ -1,24 +1,24 @@
 # PaySure — Every Payment. Verified. Every Time.
 ## Smart UPI Payment Verification & Vendor Management Platform
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-HTTPS%20Online-success?style=for-the-badge&logo=cloudflare)](https://older-save-graduate-rebecca.trycloudflare.com)
+[![Live Demo](https://img.shields.io/badge/GitHub%20Pages-Permanent%20HTTPS-success?style=for-the-badge&logo=github)](https://piyushx0416-dotcom.github.io/PaySure/)
 [![Next.js 14](https://img.shields.io/badge/Next.js-14.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Dark Mode](https://img.shields.io/badge/Theme-Default%20Dark%20%7C%20System-070e1b?style=for-the-badge)](https://older-save-graduate-rebecca.trycloudflare.com)
+[![Dark Mode](https://img.shields.io/badge/Theme-Default%20Dark%20%7C%20System-070e1b?style=for-the-badge)](https://piyushx0416-dotcom.github.io/PaySure/)
 
 ---
 
-### 🌐 Instant Live Public Access (HTTPS)
+### 🌐 Permanent Live Public Website (Never Expires)
 
-Anyone can immediately test and evaluate the PaySure platform without local installation:
+PaySure is hosted 24/7 on **GitHub Pages** with permanent HTTPS encryption. Anyone can evaluate the platform on any smartphone, tablet, or PC without installing any software or running local tunnels:
 
-- 🚀 **Main Application Portal**: **[https://older-save-graduate-rebecca.trycloudflare.com](https://older-save-graduate-rebecca.trycloudflare.com)**
-- 🔊 **Live Soundbox Kiosk Screen**: **[https://older-save-graduate-rebecca.trycloudflare.com/monitor](https://older-save-graduate-rebecca.trycloudflare.com/monitor)**
-- 🧪 **Interactive Simulation Lab**: **[https://older-save-graduate-rebecca.trycloudflare.com/simulation](https://older-save-graduate-rebecca.trycloudflare.com/simulation)**
-- 🛡️ **Fraud Detection Center**: **[https://older-save-graduate-rebecca.trycloudflare.com/fraud](https://older-save-graduate-rebecca.trycloudflare.com/fraud)**
-- 📊 **Stall Sales Analytics**: **[https://older-save-graduate-rebecca.trycloudflare.com/analytics](https://older-save-graduate-rebecca.trycloudflare.com/analytics)**
+- 🚀 **Main Application Portal**: **[https://piyushx0416-dotcom.github.io/PaySure/](https://piyushx0416-dotcom.github.io/PaySure/)**
+- 🔊 **Live Soundbox Kiosk Screen**: **[https://piyushx0416-dotcom.github.io/PaySure/monitor/](https://piyushx0416-dotcom.github.io/PaySure/monitor/)**
+- 🧪 **Interactive Simulation Lab**: **[https://piyushx0416-dotcom.github.io/PaySure/simulation/](https://piyushx0416-dotcom.github.io/PaySure/simulation/)**
+- 🛡️ **Fraud Detection Center**: **[https://piyushx0416-dotcom.github.io/PaySure/fraud/](https://piyushx0416-dotcom.github.io/PaySure/fraud/)**
+- 📊 **Stall Sales Analytics**: **[https://piyushx0416-dotcom.github.io/PaySure/analytics/](https://piyushx0416-dotcom.github.io/PaySure/analytics/)**
 
-*Encrypted with Cloudflare Edge SSL. Accessible on any smartphone, tablet, or desktop browser with zero login friction (1-Click Demo Login as Ramesh Kumar included).*
+*Hosted permanently by GitHub. Built with Next.js 14, default dark mode, offline caching, and multilingual voice synthesis (English, Hindi, Kannada).*
 
 ---
 
@@ -67,7 +67,7 @@ PaySure completely resolves these issues through **authoritative cryptographic s
 
 ## 🛠️ Technology Stack
 
-- **Framework**: Next.js 14 (App Router, Server & Client Components)
+- **Framework**: Next.js 14 (App Router, Static Export to GitHub Pages)
 - **Language**: TypeScript (Strict typing, Zod schema validation)
 - **Styling**: Tailwind CSS (Fintech design inspired by Razorpay, Stripe, and Linear)
 - **Icons**: Lucide React
@@ -97,7 +97,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000/PaySure/](http://localhost:3000/PaySure/) in your browser.
 
 ### 1-Click Demo Evaluation Mode
 - Click **"Vendor Login"** or **"Explore Live Demo"** on the landing page.

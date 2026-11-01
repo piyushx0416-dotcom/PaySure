@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { initialTransactions } from "@/lib/mockData";
 
+export function generateStaticParams() {
+  return initialTransactions.map((t) => ({ id: t.id }));
+}
+
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }
